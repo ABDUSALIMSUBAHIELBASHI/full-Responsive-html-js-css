@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Message Center — Book Store</title>
+  <style>
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#06b6d4;
+      --success:#16a34a;
+      --danger:#ef4444;
+      --glass: rgba(255,255,255,0.03);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071026 0%,#07172a 100%);color:#e6eef8}
+    .wrap{max-width:980px;margin:36px auto;padding:24px}
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700}
+    .title h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .title p{margin:0;color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+
+    form .row{display:flex;flex-direction:column;margin-bottom:12px}
+    label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    input[type=text], input[type=email], textarea{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px 12px;border-radius:8px;color:inherit;font-size:14px}
+    textarea{min-height:110px;resize:vertical}
+    .btn{display:inline-flex;gap:10px;align-items:center;background:linear-gradient(90deg,var(--accent),#7c3aed);border:none;padding:10px 14px;border-radius:10px;color:#012;cursor:pointer;font-weight:600}
+    .btn:disabled{opacity:0.5;cursor:not-allowed}
+
+    .activity{font-size:13px;color:var(--muted);margin-bottom:12px}
+    .log{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;min-height:72px}
+    .empty{color:var(--muted);font-size:13px}
+
+    .message-item{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px}
+    .message-meta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+
+    .notice{padding:10px;border-radius:8px;margin-bottom:12px;display:none}
+    .notice.show{display:block}
+    .notice.success{background:rgba(16,185,129,0.12);color:var(--success);border:1px solid rgba(16,185,129,0.18)}
+    .notice.error{background:rgba(239,68,68,0.08);color:var(--danger);border:1px solid rgba(239,68,68,0.12)}
+
+    aside h3{margin-top:0;margin-bottom:10px}
+    .recent-list{max-height:340px;overflow:auto;padding-right:6px}
+
+    .controls{display:flex;gap:8px;margin-top:12px}
+    .link{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:var(--muted);cursor:pointer}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    @media (max-width:880px){.grid{grid-template-columns:1fr;padding-bottom:18px}.wrap{padding:18px}.recent-list{max-height:220px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">B</div>
+      <div class="title">
+        <h1>Book Store us</h1>
+        <p>Contact Message Center</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main class="card">
+        <div class="activity">We'd love to hear from you</div>
+
+        <div class="notice" id="notice-success">✅ Message sent successfully! Thank you for contacting us.</div>
+        <div class="notice" id="notice-error">❌ Failed to send message. Please try again.</div>
+        <div class="notice" id="notice-limit">⚠️ Message limit reached (999.messages). Please contact administrator.</div>
+
+        <form id="message-form" autocomplete="off">
+          <div class="row">
+            <label for="fullname">Full Name</label>
+            <input id="fullname" name="fullname" type="text" placeholder="Your full name" required />
+          </div>
+
+          <div class="row">
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="row">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px">
+            <button class="btn" id="send-btn" type="submit">Send Message</button>
+            <button type="button" class="link" id="clear-btn">Clear All</button>
+          </div>
+        </form>
+
+        <section style="margin-top:18px">
+          <h3 style="margin:0 0 8px 0">Activity Log</h3>
+          <div class="log" id="activity-log">
+            <div class="empty">No activity yet</div>
+          </div>
+        </section>
+
+        <footer>
+          <strong>Recent Messages</strong>
+          <div id="recent-count" style="float:right;color:var(--muted)">0 messages</div>
+          <div style="clear:both"></div>
+          <div class="recent-list" id="recent-list">
+            <div class="empty">No messages yet<br>Messages will appear here once submitted</div>
+          </div>
+        </footer>
+      </main>
+
+      <aside class="card">
+        <h3>Quick Actions</h3>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:12px">Manage messages locally in your browser (stored in localStorage).</div>
+        <div class="controls">
+          <button class="link" id="export-btn">Export JSON</button>
+          <button class="link" id="import-btn">Import JSON</button>
+        </div>
+        <hr style="border:none;margin:14px 0;border-top:1px solid rgba(255,255,255,0.03)">
+        <h4 style="margin-bottom:8px">Instructions</h4>
+        <ol style="color:var(--muted);padding-left:18px;margin-top:0">
+          <li>Fill the form and press <em>Send Message</em>.</li>
+          <li>Messages are saved to localStorage and shown in Recent Messages.</li>
+          <li>Use Export/Import to move messages between devices.</li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const MAX_MESSAGES = 999;
+      const form = document.getElementById('message-form');
+      const fullname = document.getElementById('fullname');
+      const email = document.getElementById('email');
+      const messageField = document.getElementById('message');
+      const sendBtn = document.getElementById('send-btn');
+      const clearBtn = document.getElementById('clear-btn');
+
+      const noticeSuccess = document.getElementById('notice-success');
+      const noticeError = document.getElementById('notice-error');
+      const noticeLimit = document.getElementById('notice-limit');
+
+      const activityLog = document.getElementById('activity-log');
+      const recentList = document.getElementById('recent-list');
+      const recentCount = document.getElementById('recent-count');
+
+      const exportBtn = document.getElementById('export-btn');
+      const importBtn = document.getElementById('import-btn');
+
+      function readMessages(){
+        try{
+          const raw = localStorage.getItem('bookstore.messages');
+          return raw ? JSON.parse(raw) : [];
+        }catch(e){
+          console.warn('failed to parse messages', e);
+          return [];
+        }
+      }
+
+      function saveMessages(msgs){
+        localStorage.setItem('bookstore.messages', JSON.stringify(msgs));
+      }
+
+      function render(){
+        const msgs = readMessages();
+        recentList.innerHTML='';
+        activityLog.innerHTML='';
+        recentCount.textContent = `${msgs.length} messages`;
+        if(!msgs.length){
+          recentList.innerHTML = '<div class="empty">No messages yet<br>Messages will appear here once submitted</div>';
+          activityLog.innerHTML = '<div class="empty">No activity yet</div>';
+          return;
+        }
+
+        msgs.slice().reverse().forEach(m => {
+          const item = document.createElement('div');
+          item.className='message-item';
+          item.innerHTML = `<div style="font-weight:600">${escapeHtml(m.fullname)} <span style="font-weight:400;color:var(--muted)">— ${escapeHtml(m.email)}</span></div>
+                            <div style="margin-top:6px">${escapeHtml(m.message)}</div>
+                            <div class="message-meta"><div>${new Date(m.date).toLocaleString()}</div><div><button class="link" data-id="${m.id}">Delete</button></div></div>`;
+          recentList.appendChild(item);
+
+          const log = document.createElement('div');
+          log.className = 'message-item';
+          log.textContent = `${new Date(m.date).toLocaleString()} — Message stored from ${m.fullname}`;
+          activityLog.appendChild(log);
+        });
+
+        // wire delete buttons
+        recentList.querySelectorAll('button[data-id]').forEach(btn=>{
+          btn.addEventListener('click', e=>{
+            const id = e.currentTarget.getAttribute('data-id');
+            const filtered = readMessages().filter(x=>x.id!==id);
+            saveMessages(filtered);
+            render();
+            showTempNotice('removed', 'Message removed.');
+          })
+        });
+      }
+
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"]+/g, function(ch){
+          const map = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}; return map[ch] || ch;
+        });
+      }
+
+      function showNotice(type){
+        [noticeSuccess, noticeError, noticeLimit].forEach(n => n.classList.remove('show'));
+        if(type==='success') noticeSuccess.classList.add('show');
+        if(type==='error') noticeError.classList.add('show');
+        if(type==='limit') noticeLimit.classList.add('show');
+        setTimeout(()=>{
+          [noticeSuccess, noticeError, noticeLimit].forEach(n => n.classList.remove('show'));
+        }, 3500);
+      }
+
+      function showTempNotice(kind, text){
+        // small transient activity
+        const el = document.createElement('div');
+        el.className='notice show success';
+        el.style.position='relative';
+        el.textContent = text;
+        activityLog.insertBefore(el, activityLog.firstChild);
+        setTimeout(()=>el.remove(), 2200);
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const msgs = readMessages();
+        if(msgs.length >= MAX_MESSAGES){
+          showNotice('limit');
+          return;
+        }
+
+        const payload = {
+          id: Math.random().toString(36).slice(2,10),
+          fullname: fullname.value.trim(),
+          email: email.value.trim(),
+          message: messageField.value.trim(),
+          date: new Date().toISOString()
+        };
+
+        // simple validation
+        if(!payload.fullname || !payload.email || !payload.message){
+          showNotice('error');
+          return;
+        }
+
+        // emulate send: here we immediately store locally.
+        try{
+          msgs.push(payload);
+          saveMessages(msgs);
+          render();
+          form.reset();
+          showNotice('success');
+        }catch(err){
+          console.error(err);
+          showNotice('error');
+        }
+      });
+
+      clearBtn.addEventListener('click', ()=>{
+        if(confirm('Clear all messages from localStorage?')){
+          localStorage.removeItem('bookstore.messages');
+          render();
+        }
+      });
+
+      exportBtn.addEventListener('click', ()=>{
+        const msgs = readMessages();
+        const blob = new Blob([JSON.stringify(msgs, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'bookstore-messages.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      importBtn.addEventListener('click', ()=>{
+        const input = document.createElement('input');
+        input.type='file'; input.accept='application/json';
+        input.addEventListener('change', ()=>{
+          const file = input.files && input.files[0];
+          if(!file) return;
+          const reader = new FileReader();
+          reader.onload = ()=>{
+            try{
+              const data = JSON.parse(reader.result);
+              if(!Array.isArray(data)) throw new Error('Invalid file');
+              saveMessages(data.slice(0, MAX_MESSAGES));
+              render();
+              showTempNotice('imported', 'Imported messages.');
+            }catch(e){
+              alert('Failed to import JSON: ' + e.message);
+            }
+          };
+          reader.readAsText(file);
+        });
+        input.click();
+      });
+
+      // initial render
+      render();
+    })();
+  </script>
+</body>
+</html>
