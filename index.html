@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Lion Conservation Initiative - Interactive Landing Page</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js"></script>
+
+  <style>
+    :root {
+      --color-primary: #a0522d; 
+      --color-accent: #ffb703; 
+      --color-background: #f7f7f7;
+      --color-text-dark: #1a1a1a;
+      --color-text-light: #ffffff;
+      --color-shadow: rgba(0, 0, 0, 0.1);
+
+      --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --font-heading: 'Georgia', serif;
+
+      --spacing-unit: 1rem;
+      --border-radius-large: 12px;
+      --border-radius-small: 6px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth; 
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-dark);
+      background-color: var(--color-background);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--color-primary);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--color-accent);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius-small);
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .donate-btn, .primary-btn {
+      background-color: var(--color-accent);
+      color: var(--color-text-dark);
+    }
+    .donate-btn:hover, .primary-btn:hover {
+      background-color: #e6a300; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--color-shadow);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--color-background);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 4px var(--color-shadow);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--color-text-dark);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--color-text-dark);
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem 2rem;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-button {
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      padding: 1rem 2.5rem;
+      border-radius: var(--border-radius-large);
+      font-size: 1.1rem;
+      margin-top: 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #8b4626; 
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-visual img {
+      border-radius: var(--border-radius-large);
+      box-shadow: 0 10px 30px var(--color-shadow);
+    }
+
+    .video-link {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: var(--color-text-dark);
+      border-radius: var(--border-radius-small);
+      font-size: 0.9rem;
+      backdrop-filter: blur(5px);
+    }
+
+    .status-tracker {
+      background-color: var(--color-text-light);
+      padding: 1.5rem;
+      border-radius: var(--border-radius-large);
+      border-left: 5px solid var(--color-accent);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      margin-top: 1.5rem;
+    }
+
+    .status-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .endangered {
+      color: #c0392b; 
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 25px;
+      background-color: #e0e0e0;
+      border-radius: var(--border-radius-small);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar::before {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 0%; 
+      background-color: var(--color-primary);
+      transition: width 1s ease-out;
+      border-radius: var(--border-radius-small);
+    }
+
+    .population-count {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: var(--color-text-light);
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .content-section h2 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .content-visual img {
+      border-radius: var(--border-radius-large);
+      transition: transform 0.5s ease;
+    }
+
+    .content-visual img:hover {
+      transform: scale(1.02);
+    }
+
+    .media-right {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+    .media-right .content-text {
+      order: -1; 
+    }
+
+    .cta-banner {
+      text-align: center;
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      padding: 4rem 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .cta-banner h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-banner p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-banner .primary-btn {
+      background-color: var(--color-accent);
+    }
+
+    .cta-banner .primary-btn:hover {
+      background-color: var(--color-text-light);
+      color: var(--color-primary);
+    }
+
+    .form-section {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .form-section h2 {
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-section p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    #donationForm {
+      background-color: var(--color-text-light);
+      padding: 2rem;
+      border-radius: var(--border-radius-large);
+      box-shadow: 0 5px 20px var(--color-shadow);
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    #donationForm input,
+    #donationForm textarea,
+    #donationForm select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius-small);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    #donationForm textarea {
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      font-size: 1.2rem;
+    }
+
+    .form-message {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: green;
+      display: none; 
+    }
+
+    footer {
+      background-color: var(--color-text-dark);
+      color: var(--color-text-light);
+      padding: 3rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-content h3 {
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .footer-content a {
+      color: var(--color-text-light);
+    }
+
+    .footer-content ul {
+      list-style: none;
+    }
+
+    .footer-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-background);
+        box-shadow: 0 5px 10px var(--color-shadow);
+        padding: 1rem 0;
+      }
+
+      .nav-links li {
+        margin: 0;
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+      
+      .nav-links a {
+          color: var(--color-primary);
+      }
+
+      .nav-links.active {
+        display: flex; 
+      }
+
+      .menu-icon {
+        display: block;
+        order: 2; 
+      }
+      
+      .donate-btn {
+          margin-left: auto;
+          order: 3;
+      }
+      
+      nav {
+          padding: 1rem;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        min-height: auto;
+      }
+      
+      .hero-visual {
+          order: -1; 
+      }
+
+      .content-section, .media-right {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1rem;
+      }
+      
+      .media-right .content-text {
+          order: 0;
+      }
+      .form-group {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .form-group input, .form-group select {
+          margin-bottom: 1rem;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main Navigation">
+      <a href="#" class="logo">Abdusalim</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#species">Species Info</a></li>
+        <li><a href="#work">Our Impact</a></li>
+        <li><a href="#about">Mission</a></li>
+      </ul>
+      <button class="menu-icon" aria-label="Toggle navigation menu">☰</button>
+      <a href="#donate" class="btn donate-btn">Donate Now</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-heading">
+      <div class="hero-text">
+        <h1 id="hero-heading">Protecting the Asiatic & African Lion</h1>
+        
+        <div class="status-tracker">
+          <p class="status-text">Asiatic Lion Status: <strong class="endangered">CRITICALLY ENDANGERED</strong></p>
+          <div class="progress-bar" role="progressbar" aria-valuenow="700" aria-valuemin="0" aria-valuemax="1000" aria-label="Estimated current population of Asiatic Lions">
+            <span class="population-count">~700 Individuals Remaining</span>
+          </div>
+          <p class="tracker-info">The only wild population is in India's Gir Forest. Our goal is to secure their future.</p>
+        </div>
+
+        <button class="cta-button">Explore Our Work</button>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-placeholder" aria-label="Dynamic image of an Asiatic Lion">
+          <img src="l.jpeg" alt="Majestic Asiatic Lion resting in the wild" loading="eager"/>
+        </div>
+        <a href="https://youtu.be/pUKoepUtOKw" class="video-link" target="_blank">Watch the African Lion Story</a>
+      </div>
+    </section>
+
+    <section id="species" class="content-section media-left" aria-labelledby="species-heading">
+      <div class="content-text">
+        <h2 id="species-heading">Species: The King of Gir</h2>
+        <p>The **Asiatic Lion** (*Panthera leo persica*) represents a crucial part of global biodiversity. Their current population is critically isolated to the **Gir Forest National Park** in Gujarat, India. This isolation makes conservation efforts paramount to prevent extinction.</p>
+        <a href="index.html" class="detail-link">View Detailed Species Map & History →</a>
+      </div>
+      <div class="content-visual">
+        <img src="g.jpeg" alt="A pair of Asiatic Lions" loading="lazy"/>
+      </div>
+    </section>
+
+    <section id="work" class="content-section media-right" aria-labelledby="work-heading">
+      <div class="content-text">
+        <h2 id="work-heading">Our Impact: Habitat & Community</h2>
+        <p>Our mission is driven by three pillars: **Habitat Protection** (anti-poaching patrols, restoration), **Scientific Research** (population tracking, genetics), and **Community Education**. We empower local communities to coexist with these majestic animals, which is key to long-term survival.</p>
+        <a href="index.html" class="detail-link">See Our Latest Field Reports →</a>
+      </div>
+      <div class="content-visual">
+        <img src="w.jpeg" alt="Conservation staff monitoring lions" loading="lazy"/>
+      </div>
+    </section>
+  </main>
+
+  <aside class="cta-banner" aria-labelledby="involved-heading">
+    <h2 id="involved-heading">Ready to Make a Real Difference?</h2>
+    <p>Every contribution helps secure the future of the Asiatic Lion. Join our global network of protectors today.</p>
+    <a href="index.html" class="btn primary-btn">Get Involved</a>
+  </aside>
+
+  <section id="donate" class="form-section" aria-labelledby="donate-heading">
+    <h2 id="donate-heading">Support the Initiative</h2>
+    <p>Your generous contribution fuels field research, supports local rangers, and funds habitat security.</p>
+    <form id="donationForm">
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Your Name" required aria-label="Your Name"/>
+        <input type="email" id="email" placeholder="Your Email" required aria-label="Your Email"/>
+      </div>
+      <div class="form-group">
+        <input type="number" id="amount" placeholder="Donation Amount ($)" required min="5" aria-label="Donation Amount in USD"/>
+        <select id="frequency" aria-label="Donation Frequency">
+          <option value="once">One-time Donation</option>
+          <option value="monthly">Monthly Support</option>
+        </select>
+      </div>
+      <textarea id="message" placeholder="Optional: Leave a message of support" aria-label="Your Message"></textarea>
+      <button type="submit" class="btn primary-btn submit-btn">Secure Donation</button>
+    </form>
+    <p class="form-message" aria-live="polite" id="formMsg"></p>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="contact-info">
+        <h3>Contact Us</h3>
+        <p><strong>📞 Phone:</strong> +250 739 390 715</p>
+        <p><strong>📧 Email:</strong> salimabdu759@gmail.com</p>
+        <p><strong>📍 Location:</strong> Kigali, Rwanda</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#species">Species</a></li>
+          <li><a href="#work">Impact</a></li>
+          <li><a href="#about">Mission</a></li>
+          <a href="index.html" class="detail-link">See Our Latest Field Reports →</a>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; **2025** Abdusalim | Global Lion Initiative. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+   
+      const menuIcon = document.querySelector('.menu-icon');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuIcon && navLinks) {
+          menuIcon.addEventListener('click', () => {
+              navLinks.classList.toggle('active');
+              
+              const isExpanded = menuIcon.getAttribute('aria-expanded') === 'true' || false;
+              menuIcon.setAttribute('aria-expanded', !isExpanded);
+          });
+          
+          navLinks.querySelectorAll('a').forEach(link => {
+              link.addEventListener('click', () => {
+                  if (navLinks.classList.contains('active')) {
+                      navLinks.classList.remove('active');
+                      menuIcon.setAttribute('aria-expanded', 'false');
+                  }
+              });
+          });
+      }
+
+
+      const progressBar = document.querySelector('.progress-bar');
+      if (progressBar) {
+          const currentValue = parseInt(progressBar.getAttribute('aria-valuenow'));
+          const maxValue = parseInt(progressBar.getAttribute('aria-valuemax'));
+          
+          const percentage = (currentValue / maxValue) * 100;
+
+          function animateProgressBar() {
+              const style = document.createElement('style');
+              style.textContent = `.progress-bar::before { width: ${percentage}%; }`;
+              document.head.append(style);
+          }
+
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      animateProgressBar();
+                      observer.unobserve(progressBar); 
+                  }
+              });
+          }, { threshold: 0.5 }); 
+
+          observer.observe(progressBar);
+      }
+
+      const donationForm = document.getElementById('donationForm');
+      const formMsg = document.getElementById('formMsg');
+
+      if (donationForm && formMsg) {
+          donationForm.addEventListener('submit', function(e) {
+              e.preventDefault(); 
+
+              const name = document.getElementById('name').value;
+              const amount = document.getElementById('amount').value;
+              const frequency = document.getElementById('frequency').value;
+              
+              formMsg.textContent = `Processing your ${frequency} donation...`;
+              formMsg.style.color = '#3498db'; 
+              formMsg.style.display = 'block';
+
+              setTimeout(() => {
+                  if (parseInt(amount) >= 5) {
+                      formMsg.textContent = `Thank you, ${name}! Your ${frequency} donation of $${amount} has been secured. You are helping save the lions!`;
+                      formMsg.style.color = 'green';
+                      donationForm.reset();
+                  } else {
+                      formMsg.textContent = 'Donation failed. Please ensure the amount is at least $5.';
+                      formMsg.style.color = '#c0392b';
+                  }
+              }, 3000);
+          });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+          });
+      });
+    });
+  </script>
+</body>
+</html>
