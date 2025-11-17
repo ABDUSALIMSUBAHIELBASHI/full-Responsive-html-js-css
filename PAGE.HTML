@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive LLM Chat Interface</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="PAGE.JS"></script>
+    <style>
+        /* Custom scrollbar for the chat area */
+        #chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: #4B5563; /* Gray-600 */
+            border-radius: 4px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background-color: #1F2937; /* Gray-800 */
+        }
+        
+        /* Apply Inter font */
+        html {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1F2937', // Custom dark background
+                        'secondary-dark': '#374151', // Slightly lighter for cards/input
+                        'gemini-blue': '#4F46E5', // Indigo-600 for primary elements
+                        'user-green': '#10B981', // Emerald-500 for user messages
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-primary-dark text-gray-100 h-screen flex flex-col antialiased">
+
+    <!-- Header -->
+    <header class="p-4 bg-secondary-dark border-b border-gray-700 shadow-lg sticky top-0 z-10">
+        <h1 class="text-xl font-bold flex items-center">
+            <svg class="w-6 h-6 mr-2 text-gemini-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            LLM Assistant
+        </h1>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="flex-grow overflow-hidden p-4 flex flex-col">
+        <!-- Message Container -->
+        <div id="chat-messages" class="flex-grow overflow-y-auto space-y-4 p-2 mb-4 rounded-lg">
+            <!-- Initial Greeting Message (System) -->
+            <div class="flex justify-start">
+                <div class="max-w-4xl p-4 rounded-xl bg-secondary-dark shadow-md">
+                    <p class="font-bold text-gemini-blue mb-1">AI Assistant</p>
+                    <p>Hello! I'm ready to chat. Type a message below to start our conversation.</p>
+                </div>
+            </div>
+            
+            <!-- Message Example: User -->
+            <div class="flex justify-end">
+                <div class="max-w-4xl p-4 rounded-xl bg-user-green text-white shadow-md">
+                    <p class="font-bold mb-1">You</p>
+                    <p>Can you help me brainstorm some ideas for a responsive web layout?</p>
+                </div>
+            </div>
+            
+            <!-- Message Example: LLM -->
+            <div class="flex justify-start">
+                <div class="max-w-4xl p-4 rounded-xl bg-secondary-dark shadow-md">
+                    <p class="font-bold text-gemini-blue mb-1">AI Assistant</p>
+                    <p>Absolutely! We can look at a grid layout, flexbox, or a hybrid approach. Which direction were you thinking of?</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Typing Indicator Area -->
+        <div id="typing-indicator" class="text-sm text-gray-400 mb-2 hidden">
+            AI Assistant is thinking...
+        </div>
+
+        <!-- Input Area -->
+        <div class="w-full">
+            <form id="chat-form" class="flex space-x-3">
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Ask me anything..."
+                    class="flex-grow p-3 border-2 border-gray-600 bg-secondary-dark text-gray-100 rounded-xl focus:outline-none focus:border-gemini-blue transition duration-200"
+                    autocomplete="off"
+                />
+                <button
+                    type="submit"
+                    id="send-button"
+                    class="p-3 bg-gemini-blue text-white rounded-xl shadow-lg hover:bg-indigo-700 transition duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7"></path></svg>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        
+
+    </script>
+</body>
+</html>
