@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdusalim — Next-Gen 2025 Portfolio</title>
+
+  <style>
+
+    :root {
+      --bg: #0d0f12;
+      --glass: rgba(255, 255, 255, 0.06);
+      --stroke: rgba(255, 255, 255, 0.14);
+      --txt: #e9eef5;
+      --accent: #4facfe;
+      --accent2: #00f2fe;
+      --radius: 22px;
+      --shadow: 0 0 40px rgba(0,0,0,0.45);
+      --trans: 0.35s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      overflow-x: hidden;
+    }
+
+    header {
+      width: 100%;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(14px);
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid var(--stroke);
+      z-index: 999;
+    }
+    nav {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    ul.nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    ul.nav li a {
+      color: var(--txt);
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.85;
+      transition: var(--trans);
+    }
+    ul.nav li a:hover {
+      opacity: 1;
+      color: var(--accent2);
+    }
+    .hero {
+      max-width: 1250px;
+      margin: 5rem auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .btn-main {
+      margin-top: 2rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      padding: 1rem 2.6rem;
+      border-radius: var(--radius);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: var(--trans);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-3px);
+      opacity: 0.92;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    section.block {
+      max-width: 1250px;
+      margin: 4.5rem auto;
+      padding: 2rem;
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    section.block h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .two-col img {
+      width: 100%;
+      border-radius: var(--radius);
+    }
+
+    ul.list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    ul.list li {
+      margin-bottom: .7rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    ul.list li::before {
+      content: "■";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent2);
+      font-size: .8rem;
+    }
+
+    /
+    footer {
+      margin-top: 5rem;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      border-top: 1px solid var(--stroke);
+    }
+
+    @media(max-width: 900px) {
+      .hero,
+      .two-col {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      nav ul.nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo">Abdusalim 2025</div>
+      <ul class="nav">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Next-Generation Full Stack Developer<br>Creating Modern, Fast & Smart Experiences</h1>
+      <a class="btn-main" href="#experience">Explore Portfolio</a>
+    </div>
+    <img src="w.jpeg" alt="Profile" />
+  </section>
+
+  <section id="experience" class="block">
+    <h2>Experience</h2>
+    <div class="two-col">
+      <div>
+        <p>Proven work history delivering fast, clean and scalable digital systems.</p>
+        <ul class="list">
+          <li>Lead Developer for high-scale dashboard systems</li>
+          <li>Data pipeline optimization & automation</li>
+          <li>Managed multi-team development workflows</li>
+        </ul>
+      </div>
+      <img src="l.jpeg" alt="Experience" />
+    </div>
+  </section>
+
+  <section id="skills" class="block">
+    <h2>Skills</h2>
+    <div class="two-col">
+      <div>
+        <ul class="list">
+          <li>Frontend: HTML, CSS, JS, React</li>
+          <li>Backend: Node.js, Python, SQL</li>
+          <li>Cloud: AWS, Linux, CI/CD</li>
+        </ul>
+      </div>
+      <img src="g.jpeg" alt="Skills" />
+    </div>
+  </section>
+
+  <section id="education" class="block">
+    <h2>Education</h2>
+    <p>MSc Computer Science — Certified & Continuously Improving.</p>
+  </section>
+
+  <footer id="contact">
+    <p>© 2025 Abdusalim • Next-Gen Portfolio</p>
+  </footer>
+</body>
+
+</html>
