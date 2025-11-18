@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdusalim - Professional Portfolio & Profile</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="index.js"></script>
+
+  <style>
+    /* --- Your original CSS is kept for responsiveness and styling --- 
+    I've only made minor adjustments to variables and selector names 
+    where necessary, but the core responsiveness is maintained.
+    */
+    :root {
+      --color-primary: #0077b6; /* Professional Blue */
+      --color-accent: #ffb703; /* Gold Accent */
+      --color-background: #f4f7fa; /* Light background */
+      --color-text-dark: #1a1a1a;
+      --color-text-light: #ffffff;
+      --color-shadow: rgba(0, 0, 0, 0.1);
+
+      --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --font-heading: 'Georgia', serif;
+
+      --spacing-unit: 1rem;
+      --border-radius-large: 12px;
+      --border-radius-small: 6px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth; 
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-dark);
+      background-color: var(--color-background);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--color-primary);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--color-accent);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius-small);
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .login-btn, .primary-btn {
+      background-color: var(--color-accent);
+      color: var(--color-text-dark);
+    }
+    .login-btn:hover, .primary-btn:hover {
+      background-color: #e6a300; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--color-shadow);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--color-background);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 4px var(--color-shadow);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--color-text-dark);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--color-text-dark);
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem 2rem;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--color-primary); /* Ensure hero heading uses primary color */
+    }
+
+    .cta-button {
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      padding: 1rem 2.5rem;
+      border-radius: var(--border-radius-large);
+      font-size: 1.1rem;
+      margin-top: 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #005f93; 
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-visual img {
+      border-radius: var(--border-radius-large);
+      box-shadow: 0 10px 30px var(--color-shadow);
+    }
+
+    /* Removed specific lion-related status-tracker styles */
+
+    .content-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      /* Added a subtle background for contrast */
+      background-color: var(--color-text-light); 
+      border-radius: var(--border-radius-large);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
+    
+    .content-section:nth-child(even) {
+      background-color: #eaf0f6; /* Subtle alternating background */
+    }
+
+
+    .content-section h2 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+    
+    /* Style for lists in profile sections */
+    .content-text ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 1rem;
+    }
+    .content-text li {
+        margin-bottom: 0.8rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    .content-text li::before {
+        content: '★'; /* Star icon for skills/languages */
+        position: absolute;
+        left: 0;
+        color: var(--color-accent);
+        font-weight: bold;
+    }
+
+
+    .content-visual img {
+      border-radius: var(--border-radius-large);
+      transition: transform 0.5s ease;
+    }
+
+    .content-visual img:hover {
+      transform: scale(1.02);
+    }
+
+    .media-right {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+    .media-right .content-text {
+      order: -1; 
+    }
+
+    .cta-banner {
+      text-align: center;
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      padding: 4rem 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .cta-banner h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-banner p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-banner .primary-btn {
+      background-color: var(--color-accent);
+    }
+
+    .cta-banner .primary-btn:hover {
+      background-color: var(--color-text-light);
+      color: var(--color-primary);
+    }
+
+    /* New form for Profile/Settings Management */
+    .form-section {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .form-section h2 {
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-section p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    #profileForm {
+      background-color: var(--color-text-light);
+      padding: 2rem;
+      border-radius: var(--border-radius-large);
+      box-shadow: 0 5px 20px var(--color-shadow);
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Added style for full-width elements in a group */
+    .form-group.full-width {
+        display: block;
+    }
+
+    #profileForm input,
+    #profileForm textarea,
+    #profileForm select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius-small);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      /* Added margin-bottom for better mobile spacing */
+      margin-bottom: 1rem; 
+    }
+    
+    .form-group input, .form-group select {
+        margin-bottom: 0; /* Remove margin-bottom from elements inside flex group */
+    }
+
+    #profileForm textarea {
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    
+    .delete-btn {
+        background-color: #c0392b;
+        color: var(--color-text-light);
+        margin-top: 0.5rem;
+    }
+
+    .form-message {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: green;
+      display: none; 
+    }
+
+    footer {
+      background-color: var(--color-text-dark);
+      color: var(--color-text-light);
+      padding: 3rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-content h3 {
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .footer-content a {
+      color: var(--color-text-light);
+    }
+
+    .footer-content ul {
+      list-style: none;
+    }
+
+    .footer-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-background);
+        box-shadow: 0 5px 10px var(--color-shadow);
+        padding: 1rem 0;
+      }
+
+      .nav-links li {
+        margin: 0;
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+      
+      .nav-links a {
+          color: var(--color-primary);
+      }
+
+      .nav-links.active {
+        display: flex; 
+      }
+
+      .menu-icon {
+        display: block;
+        order: 2; 
+      }
+      
+      .login-btn {
+          margin-left: auto;
+          order: 3;
+      }
+      
+      nav {
+          padding: 1rem;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        min-height: auto;
+      }
+      
+      .hero-visual {
+          order: -1; 
+      }
+
+      .content-section, .media-right {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1rem;
+      }
+      
+      .media-right .content-text {
+          order: 0;
+      }
+      .form-group {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .form-group input, .form-group select {
+          margin-bottom: 1rem;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+  </head>
+<body>
+  <header>
+    <nav aria-label="Main Navigation">
+      <a href="#" class="logo">Abdusalim Portfolio</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills & Lang.</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="menu-icon" aria-label="Toggle navigation menu">☰</button>
+      <a href="#profile-management" class="btn login-btn" id="authBtn">Login / Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-heading">
+      <div class="hero-text">
+        <h1 id="hero-heading">Highly Responsive Full Stack Profile</h1>
+        
+        <div class="status-tracker" style="background-color: var(--color-text-light); padding: 1.5rem; border-radius: var(--border-radius-large); border-left: 5px solid var(--color-accent); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); margin-top: 1.5rem;">
+          <p class="status-text">Role: <strong style="color: var(--color-primary); font-weight: 700;">Lead Developer & Analyst</strong></p>
+          <p class="tracker-info">Dedicated professional with experience in building scalable, secure, and fully responsive web applications and setting up comprehensive user authentication (signup, login, logout).</p>
+        </div>
+
+        <button class="cta-button">View Full Resume</button>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-placeholder" aria-label="Professional Placeholder Image">
+          <img src="l.jpeg" alt="Professional Profile Picture Placeholder" loading="eager"/>
+        </div>
+        <a href="https://youtu.be/pUKoepUtOKw" class="video-link" target="_blank">View action Profile</a>
+      </div>
+    </section>
+
+    <section id="experience" class="content-section media-left" aria-labelledby="experience-heading">
+      <div class="content-text">
+        <h2 id="experience-heading">Work Experience & Action</h2>
+        <p>I have a proven record of action and accomplishment in diverse roles, using my skills to drive results and manage complex projects.</p>
+        <ul>
+            <li>**Senior Developer** (2020-Present): Led a team to launch a responsive SaaS platform, resulting in 40% user growth.</li>
+            <li>**Data Analyst** (2018-2020): Implemented new reporting tools, saving 10 hours per week in manual data processing.</li>
+            <li>**Project ID:** 123456 | **Role:** Team Lead | **Email:** exp.email@example.com</li>
+        </ul>
+        <a href="index.html" class="detail-link">Detailed Project History →</a>
+      </div>
+      <div class="content-visual">
+        <img src="g.jpeg" alt="Image representing professional development" loading="lazy"/>
+      </div>
+    </section>
+
+    <section id="skills" class="content-section media-right" aria-labelledby="skills-heading">
+      <div class="content-text">
+        <h2 id="skills-heading">Skills & Language Proficiency</h2>
+        <p>Expertise in core technologies and languages, with long-term experience (long str.y) in development and communication.</p>
+        
+        <h3>Core Skills</h3>
+        <ul>
+            <li>**Frontend:** HTML5, CSS3 (Responsive), JavaScript, React/Vue (Action: Build UIs)</li>
+            <li>**Backend:** Node.js, Python/Django, SQL (Action: Database Management)</li>
+        </ul>
+        
+        <h3>Languages</h3>
+        <ul>
+            <li>**English:** Fluent (Experience: 10+ years professional)</li>
+            <li>**Swahili:** Native (Action: Leadership and communication)</li>
+        </ul>
+        <a href="index.html" class="detail-link">Detailed Skill Matrix →</a>
+      </div>
+      <div class="content-visual">
+        <img src="w.jpeg" alt="Image representing technological skills" loading="lazy"/>
+      </div>
+    </section>
+    
+    <section id="education" class="content-section media-left" aria-labelledby="education-heading">
+      <div class="content-text">
+        <h2 id="education-heading">Education and Certifications</h2>
+        <p>A strong foundation in Computer Science and continuous learning through certifications ensure I bring modern, effective solutions.</p>
+        <ul>
+            <li>**M.Sc. Computer Science** - University of Technology (2016-2018)</li>
+            <li>**B.A. Software Engineering** - Metropolitan University (2012-2016)</li>
+            <li>**AWS Certified Developer** - (2023)</li>
+        </ul>
+        <a href="index.html" class="detail-link">View Transcripts →</a>
+      </div>
+      <div class="content-visual">
+        <img src="l.jpeg" alt="Image representing education and learning" loading="lazy"/>
+      </div>
+    </section>
+  </main>
+
+  <aside class="cta-banner" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Need a Full Responsive Expert?</h2>
+    <p>Get in touch to discuss your project needs for full settings update, responsive design, and robust authentication.</p>
+    <a href="#profile-management" class="btn primary-btn">Start a Project</a>
+  </aside>
+
+  <section id="profile-management" class="form-section" aria-labelledby="profile-heading">
+    <h2 id="profile-heading">User Profile & Full Settings Update</h2>
+    <p>Manage your account settings, or sign up/login to access protected features.</p>
+    <form id="profileForm">
+      <div class="form-group">
+        <input type="text" id="p_role" placeholder="Your Role (e.g., Administrator)" required aria-label="Your Role"/>
+        <input type="email" id="p_email" placeholder="Your Email (Login ID)" required aria-label="Your Email"/>
+      </div>
+      <div class="form-group">
+        <input type="password" id="p_password" placeholder="Password" required aria-label="Password"/>
+        <input type="text" id="p_id" placeholder="Experience ID (Optional)" aria-label="Experience ID"/>
+      </div>
+      
+      <div class="form-group full-width">
+        <textarea id="p_message" placeholder="A long story (longstr.y) about your experience or a private message to save" aria-label="Your Message/Long Story"></textarea>
+      </div>
+      
+      <button type="submit" class="btn primary-btn submit-btn">Save Settings / Sign Up</button>
+      <button type="button" class="btn delete-btn submit-btn" id="deleteMsgBtn">Delete Message</button>
+      <button type="button" class="btn primary-btn submit-btn" id="logoutBtn">Logout</button>
+    </form>
+    <p class="form-message" aria-live="polite" id="formMsg"></p>
+  </section>
+
+  <footer>
+    <div class="footer-content" id="contact">
+      <div class="contact-info">
+        <h3>Contact Info</h3>
+        <p><strong>📞 Phone:</strong> +250 739 390 715</p>
+        <p><strong>📧 Email:</strong> salimabdu759@gmail.com</p>
+        <p><strong>📍 Location:</strong> Kigali, Rwanda</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#profile-management">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; **2025** Abdusalim | Professional Portfolio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+   
+      const menuIcon = document.querySelector('.menu-icon');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuIcon && navLinks) {
+          menuIcon.addEventListener('click', () => {
+              navLinks.classList.toggle('active');
+              
+              const isExpanded = menuIcon.getAttribute('aria-expanded') === 'true' || false;
+              menuIcon.setAttribute('aria-expanded', !isExpanded);
+          });
+          
+          navLinks.querySelectorAll('a').forEach(link => {
+              link.addEventListener('click', () => {
+                  if (navLinks.classList.contains('active')) {
+                      navLinks.classList.remove('active');
+                      menuIcon.setAttribute('aria-expanded', 'false');
+                  }
+              });
+          });
+      }
+
+      // NOTE: Removed the lion population progress bar JS since it's no longer relevant.
+      
+
+      // --- Profile Management (Signup/Settings Update) & Message Handling ---
+      const profileForm = document.getElementById('profileForm');
+      const formMsg = document.getElementById('formMsg');
+      const deleteMsgBtn = document.getElementById('deleteMsgBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if (profileForm && formMsg) {
+          // 1. Save Settings / Sign Up (Save Message)
+          profileForm.addEventListener('submit', function(e) {
+              e.preventDefault(); 
+
+              const role = document.getElementById('p_role').value;
+              const email = document.getElementById('p_email').value;
+              
+              formMsg.textContent = `Processing full settings update...`;
+              formMsg.style.color = '#3498db'; 
+              formMsg.style.display = 'block';
+
+              setTimeout(() => {
+                  // Simulate successful save operation
+                  formMsg.textContent = `Success! Profile for ${role} (${email}) saved. Your message is secured.`;
+                  formMsg.style.color = 'green';
+                  // In a real application, data would be sent to a server here.
+              }, 2000);
+          });
+          
+          // 2. Delete Message (det. messge)
+          deleteMsgBtn.addEventListener('click', function() {
+              document.getElementById('p_message').value = '';
+              formMsg.textContent = 'Private message content deleted successfully!';
+              formMsg.style.color = '#c0392b'; 
+              formMsg.style.display = 'block';
+              
+               setTimeout(() => {
+                  formMsg.style.display = 'none';
+              }, 3000);
+          });
+          
+          // 3. Logout (longout)
+          logoutBtn.addEventListener('click', function() {
+              // Clear form fields to simulate a reset/logout state
+              profileForm.reset();
+              formMsg.textContent = 'You have successfully logged out.';
+              formMsg.style.color = '#0077b6'; 
+              formMsg.style.display = 'block';
+              
+               setTimeout(() => {
+                  formMsg.style.display = 'none';
+              }, 3000);
+              
+              document.getElementById('authBtn').textContent = 'Login / Settings';
+          });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              // Smooth scrolling logic remains here
+          });
+      });
+    });
+  </script>
+  </body>
+</html>
